@@ -19,7 +19,7 @@ int main(void) {
 	SetTraceLogLevel(LOG_FATAL);
 	InitWindow(screenWidth, screenHeight, "Game");
 
-	if (Init() != 0) { // Idek why this is structured like this, I just want to be cool
+	if (Init((Vector2){screenWidth, screenHeight}) != 0) { //* Idek why this is structured like this, I just want to be cool
 		return 1;
 	}
 
@@ -50,14 +50,32 @@ int main(void) {
 			EndMode2D();
 			DrawFPS(20, 20);
 
-			if (Button((Rectangle){ 400.f, 420.f, 210.f, 50.f }, (Color) { 51.f, 51.f, 51.f, 255.f }, "I'm spaced out!", 32, spacing)) {
-				print("Space is so cool!");
+			if (Button(Alignment::TOPLEFT, 		(Vector2){ 210.f, 50.f }, ElementAlignment::CENTER, (Color) { 51.f, 51.f, 51.f, 255.f }, "I should be in the TOPLEFT", 18, spacing)) {
+				print("My alignment is TOPLEFT");
 			}
-			if (ButtonHold((Rectangle){ 400.f, 480.f, 210.f, 50.f }, (Color) { 51.f, 51.f, 51.f, 255.f }, "spacing += 0.1", 32, 1.f)) {
-				spacing += 4.f*deltaTime;
+			if (Button(Alignment::TOPCENTER, 	(Vector2){ 210.f, 50.f }, ElementAlignment::CENTER, (Color) { 51.f, 51.f, 51.f, 255.f }, "I should be in the TOPCENTER", 18, spacing)) {
+				print("My alignment is TOPCENTER");
 			}
-			if (ButtonHold((Rectangle){ 400.f, 540.f, 210.f, 50.f }, (Color) { 51.f, 51.f, 51.f, 255.f }, "spacing -= 0.1", 32, 1.f)) {
-				spacing -= 4.f*deltaTime;
+			if (Button(Alignment::TOPRIGHT, 	(Vector2){ 210.f, 50.f }, ElementAlignment::CENTER, (Color) { 51.f, 51.f, 51.f, 255.f }, "I should be in the TOPRIGHT", 18, spacing)) {
+				print("My alignment is TOPRIGHT");
+			}
+			if (Button(Alignment::LEFT, 		(Vector2){ 210.f, 50.f }, ElementAlignment::CENTER, (Color) { 51.f, 51.f, 51.f, 255.f }, "I should be in the LEFT", 18, spacing)) {
+				print("My alignment is LEFT");
+			}
+			if (Button(Alignment::CENTER, 		(Vector2){ 210.f, 50.f }, ElementAlignment::CENTER, (Color) { 51.f, 51.f, 51.f, 255.f }, "I should be in the CENTER", 18, spacing)) {
+				print("My alignment is CENTER");
+			}
+			if (Button(Alignment::RIGHT, 		(Vector2){ 210.f, 50.f }, ElementAlignment::CENTER, (Color) { 51.f, 51.f, 51.f, 255.f }, "I should be in the RIGHT", 18, spacing)) {
+				print("My alignment is RIGHT");
+			}
+			if (Button(Alignment::BOTTOMLEFT, 	(Vector2){ 210.f, 50.f }, ElementAlignment::CENTER, (Color) { 51.f, 51.f, 51.f, 255.f }, "I should be in the BOTTOMLEFT", 18, spacing)) {
+				print("My alignment is BOTTOMLEFT");
+			}
+			if (Button(Alignment::BOTTOMCENTER, (Vector2){ 210.f, 50.f }, ElementAlignment::CENTER, (Color) { 51.f, 51.f, 51.f, 255.f }, "I should be in the BOTTOMCENTER", 18, spacing)) {
+				print("My alignment is BOTTOMCENTER");
+			}
+			if (Button(Alignment::BOTTOMRIGHT, 	(Vector2){ 210.f, 50.f }, ElementAlignment::CENTER, (Color) { 51.f, 51.f, 51.f, 255.f }, "I should be in the BOTTOMRIGHT", 18, spacing)) {
+				print("My alignment is BOTTOMRIGHT");
 			}
 
 		EndDrawing();
