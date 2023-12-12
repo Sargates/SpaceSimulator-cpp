@@ -10,7 +10,7 @@
 Font sdfFont = { 0 };
 Shader sdfFontShader;
 
-int init(void) {
+int Init(void) {
 	//* Initialize font
 	int fileSize = 0;
 	unsigned char *fileData = LoadFileData("resources/Fonts/opensans-semibold.ttf", &fileSize);
@@ -73,6 +73,12 @@ bool ButtonHold(Rectangle rect, Color buttonColor, std::string text, int fontSiz
 	DrawTextEx(sdfFont, text.c_str(), fontPosition, fontSize, spacing, WHITE);
 	EndShaderMode();
 
-	return IsMouseButtonDown(MOUSE_BUTTON_LEFT);
-	
+	return IsMouseButtonDown(MOUSE_BUTTON_LEFT);	
+}
+
+int FreeFontStuff(void) {
+	// Free memory to avoid memory leak
+	UnloadFont(sdfFont);
+	UnloadShader(sdfFontShader);
+	return 0;
 }

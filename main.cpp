@@ -18,8 +18,8 @@ int main(void) {
 
 	SetTraceLogLevel(LOG_FATAL);
 	InitWindow(screenWidth, screenHeight, "Game");
-	
-	if (init() != 0) { // Idek why this is structured like this, I just want to be cool
+
+	if (Init() != 0) { // Idek why this is structured like this, I just want to be cool
 		return 1;
 	}
 
@@ -63,6 +63,7 @@ int main(void) {
 		EndDrawing();
 	}
 
+	FreeFontStuff();
 	CloseWindow();
 
 	return 0;
