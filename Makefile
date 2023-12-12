@@ -13,10 +13,10 @@ OBJ_FILES := $(patsubst src/%.cpp,$(OBJ_DIR)/%.o,$(filter src/%.cpp,$(SRC_FILES)
 
 
 # Run `make clean` before changing name of program
-PROGRAM := game
+PROGRAM := program
 
 
-all: windows
+all: linux
 
 
 program: $(OBJ_FILES)
@@ -45,8 +45,9 @@ linux:
 	@$(MAKE) program CXX=g++ CXXFLAGS="-I include -std=c++20 -lraylib -Wall -Wno-narrowing"
 
 run:
-	@$(MAKE) windows
-	./$(PROGRAM).exe
+	@$(MAKE) linux
+	@# Use * to autocomplete program regardless of extension -- might cause unintended behavior
+	./$(PROGRAM)*
 
 
 
