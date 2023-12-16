@@ -62,9 +62,9 @@ Vector2 ElementAlignmentToRelativePosition(ElementAlignment alignment, Vector2 s
 		case ElementAlignment::LEFT: 			out = (Vector2) {      0.f, size.y/2 }; break; 
 		case ElementAlignment::CENTER: 			out = (Vector2) { size.x/2, size.y/2 }; break; 
 		case ElementAlignment::RIGHT: 			out = (Vector2) {   size.x, size.y/2 }; break; 
-		case ElementAlignment::BOTTOMLEFT: 		out = (Vector2) {      0.f,   size.x }; break; 
-		case ElementAlignment::BOTTOMCENTER: 	out = (Vector2) { size.x/2,   size.x }; break; 
-		case ElementAlignment::BOTTOMRIGHT: 	out = (Vector2) {   size.x,   size.x }; break; 
+		case ElementAlignment::BOTTOMLEFT: 		out = (Vector2) {      0.f,   size.y }; break; 
+		case ElementAlignment::BOTTOMCENTER: 	out = (Vector2) { size.x/2,   size.y }; break; 
+		case ElementAlignment::BOTTOMRIGHT: 	out = (Vector2) {   size.x,   size.y }; break; 
 
 		default: 								out = (Vector2) {      0.f,      0.f }; break; // Todo: Raise exception here
 	}
