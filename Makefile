@@ -13,7 +13,7 @@ OBJ_FILES := $(patsubst src/%.cpp,$(OBJ_DIR)/%.o,$(filter src/%.cpp,$(SRC_FILES)
 
 
 # Run `make clean` before changing name of program
-PROGRAM := program
+PROGRAM := main
 
 
 all: linux run

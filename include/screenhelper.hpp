@@ -1,3 +1,5 @@
+#pragma once
+
 // Include raylib deps
 #include <raylib/raylib.h>
 #include <raylib/rcamera.h>
