@@ -38,6 +38,7 @@
 *     3. This notice may not be removed or altered from any source distribution.
 *
 **********************************************************************************************/
+#pragma once
 
 #ifndef RCAMERA_H
 #define RCAMERA_H

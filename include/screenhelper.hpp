@@ -1,9 +1,14 @@
 #pragma once
 
 // Include raylib deps
-#include <raylib/raylib.h>
-#include <raylib/rcamera.h>
+#include "raylib/raylib.hpp"
+#include "raylib/rcamera.hpp"
 #include <iostream>
+
+
+extern Font sdfFont;
+extern Shader sdfFontShader;
+extern Vector2 screenSize;
 
 //* These need to have the `class` keyword. See here: https://stackoverflow.com/a/23288968
 enum class Alignment {
@@ -32,6 +37,7 @@ enum class ElementAlignment {
 };
 
 int Init(Vector2 size);
+void DrawTextOnScreen(std::string text, Vector2 position, float fontSize, float spacing = 2.f, Color tint = WHITE, bool centered=true);
 Vector2 AlignmentToScreenPosition(Alignment alignment);
 Vector2 ElementAlignmentToRelativePosition(ElementAlignment alignment, Vector2 size, bool negate=false);
 Rectangle AlignmentToRect(Alignment alignment, Vector2 size, Vector2 delta = (Vector2) { 0.f, 0.f });

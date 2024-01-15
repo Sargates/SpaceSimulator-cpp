@@ -1,14 +1,13 @@
 // Include raylib deps
-#include <raylib/raylib.h>
-#include <raylib/rcamera.h>
+#include "raylib/raylib.hpp"
+#include "raylib/rcamera.hpp"
 
 
 #include <iostream>
+#include <string>
 #define print(x) std::cout << x << std::endl // print macro pog
 
-// Personalized helper files
 #include "screenhelper.hpp"
-
 
 
 
@@ -31,13 +30,12 @@ int main(void) {
 	camera.zoom = 1.f;
 
 
-	SetTargetFPS(300);                   // Set our game to run at 60 frames-per-second
+	SetTargetFPS(300);
 
 	float deltaTime = 0.0f;
 	float spacing = 2.f;
 	while (!WindowShouldClose()) {
 		deltaTime = GetFrameTime();
-
 
 		BeginDrawing();
 

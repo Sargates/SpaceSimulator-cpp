@@ -1,7 +1,7 @@
 // Include raylib deps
 #include <string>
-#include <raylib/raylib.h>
-#include <raylib/rcamera.h>
+#include "raylib/raylib.hpp"
+#include "raylib/rcamera.hpp"
 
 #include "screenhelper.hpp"
 
@@ -100,7 +100,7 @@ bool Button(Rectangle rect, Color buttonColor, std::string text, int fontSize, f
 	return IsMouseButtonPressed(MOUSE_BUTTON_LEFT);	
 }
 
-// This will ensure that the button is situated 
+// // ~~This will ensure that the button is situated~~
 bool Button(Alignment alignment, Vector2 size, ElementAlignment elemAlignment, Color buttonColor, std::string text, int fontSize, float spacing) {
 	return Button(
 		AlignmentToRect( // Convert passed arguments to a rectangle at the relevent position

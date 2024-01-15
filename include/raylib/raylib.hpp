@@ -75,11 +75,13 @@
 *     3. This notice may not be removed or altered from any source distribution.
 *
 **********************************************************************************************/
+#pragma once
 
 #ifndef RAYLIB_H
 #define RAYLIB_H
 
 #include <stdarg.h>     // Required for: va_list - Only used by TraceLogCallback
+#include <stdexcept>
 
 #define RAYLIB_VERSION_MAJOR 5
 #define RAYLIB_VERSION_MINOR 0
@@ -200,25 +202,107 @@
     #define RL_BOOL_TYPE
 #endif
 
+//! This is modified for personal use
+
 // Vector2, 2 components
-typedef struct Vector2 {
+struct Vector2 {
     float x;                // Vector x component
     float y;                // Vector y component
-} Vector2;
+
+	Vector2() : x(0), y(0) {}
+	Vector2(float x) : x(x), y(x) {}
+	Vector2(float x, float y) : x(x), y(y) {}
+
+	// bool within(Vector2 a, Vector2 b) { return a.x <= x && x < b.x && a.y <= y && y < b.y; } // Experimental
+	Vector2 asInt() { return { (int)x, (int)y }; }
+
+	// Equality operator
+    bool operator==(const Vector2& other) const { return x == other.x && y == other.y; }
+	// Inequality operator
+    bool operator!=(const Vector2& other) const { return x != other.x && y != other.y; }
+
+
+    // Addition operator
+    Vector2 operator+(const Vector2& other) const { return {x + other.x, y + other.y}; }
+    // Subtraction operator
+    Vector2 operator-(const Vector2& other) const { return {x - other.x, y - other.y}; }
+    // Scalar multiplication
+    Vector2 operator*(float scalar) const { return {x * scalar, y * scalar}; }
+    // Scalar division
+    Vector2 operator/(float scalar) const {
+        // Check for division by zero to avoid undefined behavior
+        if (scalar != 0.0f) {
+            float invScalar = 1.0f / scalar;
+            return {x * invScalar, y * invScalar};
+        } else {
+            // Throw a division by zero exception
+            throw std::runtime_error("Vector2 division by zero");
+        }
+    }
+
+	std::string toString(bool asInt=false) {
+		std::string out = "";
+		if (asInt) {
+			return "<" + std::to_string((int)x) + ", " + std::to_string((int)y) + ">";
+		}
+		return "<" + std::to_string(x) + ", " + std::to_string(y) + ">";
+	}
+};
+// Right multiplication
+//* I do not know what `inline` does, without it this counts as a duplicate definition
+inline Vector2 operator*(float scalar, Vector2 v) {
+	return {v.x * scalar, v.y * scalar};
+}
 
 // Vector3, 3 components
-typedef struct Vector3 {
-    float x;                // Vector x component
-    float y;                // Vector y component
-    float z;                // Vector z component
-} Vector3;
+struct Vector3 {
+    float x, y, z;
+
+    Vector3() : x(0), y(0) {}
+	Vector3(float x) : x(x), y(x), z(x) {}
+	Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
+
+	Vector3 asInt() { return { (int)x, (int)y, (int)z }; }
+
+    // Equality operator
+    bool operator==(const Vector3& other) const { return x == other.x && y == other.y && z == other.z; }
+	// Inequality operator
+    bool operator!=(const Vector3& other) const { return x != other.x && y != other.y && z != other.z; }
+
+    // Addition operator
+    Vector3 operator+(const Vector3& other) const { return {x + other.x, y + other.y, z + other.z}; }
+    // Subtraction operator
+    Vector3 operator-(const Vector3& other) const { return {x - other.x, y - other.y, z - other.z}; }
+    // Scalar multiplication
+    Vector3 operator*(float scalar) const { return {x * scalar, y * scalar, z * scalar}; }
+    // Scalar division
+    Vector3 operator/(float scalar) const {
+        // Check for division by zero to avoid undefined behavior
+        if (scalar != 0.0f) {
+            float invScalar = 1.0f / scalar;
+            return {x * invScalar, y * invScalar, z * invScalar};
+        } else {
+            // Throw a division by zero exception
+            throw std::runtime_error("Vector3 division by zero");
+        }
+    }
+
+    std::string toString(bool asInt=false) {
+		std::string out = "";
+		if (asInt) {
+			return "<" + std::to_string((int)x) + ", " + std::to_string((int)y) + ", " + std::to_string((int)z) + ">";
+		}
+		return "<" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ">";
+	}
+};
+// Right multiplication
+inline Vector3 operator*(float scalar, Vector3 v) {
+	return {v.x * scalar, v.y * scalar, v.z * scalar};
+}
 
 // Vector4, 4 components
 typedef struct Vector4 {
-    float x;                // Vector x component
-    float y;                // Vector y component
-    float z;                // Vector z component
-    float w;                // Vector w component
+    float x, y, z, w;
 } Vector4;
 
 // Quaternion, 4 components (Vector4 alias)
@@ -246,6 +330,8 @@ typedef struct Rectangle {
     float y;                // Rectangle top-left corner position y
     float width;            // Rectangle width
     float height;           // Rectangle height
+	Rectangle(float x, float y, float width, float height) : x(x), y(y), width(width), height(height) {};
+	Rectangle(Vector2 position, Vector2 size) : x(position.x), y(position.y), width(size.x), height(size.y) {};
 } Rectangle;
 
 // Image, pixel data stored in CPU memory (RAM)
