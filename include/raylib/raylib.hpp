@@ -155,11 +155,11 @@
 // this defines are very useful for internal check and avoid type (re)definitions
 #define RL_COLOR_TYPE
 #define RL_RECTANGLE_TYPE
-#define RL_VECTOR2_TYPE
-#define RL_VECTOR3_TYPE
-#define RL_VECTOR4_TYPE
-#define RL_QUATERNION_TYPE
-#define RL_MATRIX_TYPE
+// #define RL_VECTOR2_TYPE
+// #define RL_VECTOR3_TYPE
+// #define RL_VECTOR4_TYPE
+// #define RL_QUATERNION_TYPE
+// #define RL_MATRIX_TYPE
 
 // Some Basic Colors
 // NOTE: Custom raylib color palette for amazing visuals on WHITE background
@@ -202,119 +202,48 @@
     #define RL_BOOL_TYPE
 #endif
 
-//! This is modified for personal use
-
+#if !defined(RL_VECTOR2_TYPE)
 // Vector2, 2 components
-struct Vector2 {
+typedef struct Vector2 {
     float x;                // Vector x component
     float y;                // Vector y component
+} Vector2;
+#define RL_VECTOR2_TYPE
+#endif
 
-	Vector2() : x(0), y(0) {}
-	Vector2(float x) : x(x), y(x) {}
-	Vector2(float x, float y) : x(x), y(y) {}
-
-	// bool within(Vector2 a, Vector2 b) { return a.x <= x && x < b.x && a.y <= y && y < b.y; } // Experimental
-	Vector2 asInt() { return { (int)x, (int)y }; }
-
-	// Equality operator
-    bool operator==(const Vector2& other) const { return x == other.x && y == other.y; }
-	// Inequality operator
-    bool operator!=(const Vector2& other) const { return x != other.x && y != other.y; }
-
-
-    // Addition operator
-    Vector2 operator+(const Vector2& other) const { return {x + other.x, y + other.y}; }
-    // Subtraction operator
-    Vector2 operator-(const Vector2& other) const { return {x - other.x, y - other.y}; }
-    // Scalar multiplication
-    Vector2 operator*(float scalar) const { return {x * scalar, y * scalar}; }
-    // Scalar division
-    Vector2 operator/(float scalar) const {
-        // Check for division by zero to avoid undefined behavior
-        if (scalar != 0.0f) {
-            float invScalar = 1.0f / scalar;
-            return {x * invScalar, y * invScalar};
-        } else {
-            // Throw a division by zero exception
-            throw std::runtime_error("Vector2 division by zero");
-        }
-    }
-
-	std::string toString(bool asInt=false) {
-		std::string out = "";
-		if (asInt) {
-			return "<" + std::to_string((int)x) + ", " + std::to_string((int)y) + ">";
-		}
-		return "<" + std::to_string(x) + ", " + std::to_string(y) + ">";
-	}
-};
-// Right multiplication
-//* I do not know what `inline` does, without it this counts as a duplicate definition
-inline Vector2 operator*(float scalar, Vector2 v) {
-	return {v.x * scalar, v.y * scalar};
-}
-
+#if !defined(RL_VECTOR3_TYPE)
 // Vector3, 3 components
-struct Vector3 {
-    float x, y, z;
+typedef struct Vector3 {
+    float x;                // Vector x component
+    float y;                // Vector y component
+    float z;                // Vector z component
+} Vector3;
+#define RL_VECTOR3_TYPE
+#endif
 
-    Vector3() : x(0), y(0) {}
-	Vector3(float x) : x(x), y(x), z(x) {}
-	Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
-
-	Vector3 asInt() { return { (int)x, (int)y, (int)z }; }
-
-    // Equality operator
-    bool operator==(const Vector3& other) const { return x == other.x && y == other.y && z == other.z; }
-	// Inequality operator
-    bool operator!=(const Vector3& other) const { return x != other.x && y != other.y && z != other.z; }
-
-    // Addition operator
-    Vector3 operator+(const Vector3& other) const { return {x + other.x, y + other.y, z + other.z}; }
-    // Subtraction operator
-    Vector3 operator-(const Vector3& other) const { return {x - other.x, y - other.y, z - other.z}; }
-    // Scalar multiplication
-    Vector3 operator*(float scalar) const { return {x * scalar, y * scalar, z * scalar}; }
-    // Scalar division
-    Vector3 operator/(float scalar) const {
-        // Check for division by zero to avoid undefined behavior
-        if (scalar != 0.0f) {
-            float invScalar = 1.0f / scalar;
-            return {x * invScalar, y * invScalar, z * invScalar};
-        } else {
-            // Throw a division by zero exception
-            throw std::runtime_error("Vector3 division by zero");
-        }
-    }
-
-    std::string toString(bool asInt=false) {
-		std::string out = "";
-		if (asInt) {
-			return "<" + std::to_string((int)x) + ", " + std::to_string((int)y) + ", " + std::to_string((int)z) + ">";
-		}
-		return "<" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ">";
-	}
-};
-// Right multiplication
-inline Vector3 operator*(float scalar, Vector3 v) {
-	return {v.x * scalar, v.y * scalar, v.z * scalar};
-}
-
+#if !defined(RL_VECTOR4_TYPE)
 // Vector4, 4 components
 typedef struct Vector4 {
     float x, y, z, w;
 } Vector4;
+#define RL_VECTOR4_TYPE
+#endif
 
+#if !defined(RL_QUATERNION_TYPE)
 // Quaternion, 4 components (Vector4 alias)
 typedef Vector4 Quaternion;
-
+#define RL_QUATERNION_TYPE
+#endif
 // Matrix, 4x4 components, column major, OpenGL style, right-handed
+#if !defined(RL_MATRIX_TYPE)
 typedef struct Matrix {
     float m0, m4, m8, m12;  // Matrix first row (4 components)
     float m1, m5, m9, m13;  // Matrix second row (4 components)
     float m2, m6, m10, m14; // Matrix third row (4 components)
     float m3, m7, m11, m15; // Matrix fourth row (4 components)
 } Matrix;
+#define RL_MATRIX_TYPE
+#endif
 
 // Color, 4 components, R8G8B8A8 (32bit)
 typedef struct Color {

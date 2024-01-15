@@ -172,7 +172,7 @@ RLAPI Matrix GetCameraProjectionMatrix(Camera* camera, float aspect);
 
 #if defined(RCAMERA_IMPLEMENTATION)
 
-#include "raymath.h"        // Required for vector maths:
+#include "raymath.hpp"        // Required for vector maths:
                             // Vector3Add()
                             // Vector3Subtract()
                             // Vector3Scale()
@@ -540,7 +540,7 @@ void UpdateCameraPro(Camera *camera, Vector3 movement, Vector3 rotation, float z
     bool lockView = true;
     bool rotateAroundTarget = false;
     bool rotateUp = false;
-    bool moveInWorldPlane = true;
+    bool moveInWorldPlane = false;
 
     // Camera rotation
     CameraPitch(camera, -rotation.y*DEG2RAD, lockView, rotateAroundTarget, rotateUp);

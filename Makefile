@@ -16,7 +16,7 @@ OBJ_FILES := $(patsubst src/%.cpp,$(OBJ_DIR)/%.o,$(filter src/%.cpp,$(SRC_FILES)
 PROGRAM := main
 
 
-all: linux run
+all: windows_dynam run
 
 
 program: $(OBJ_FILES)
@@ -39,6 +39,10 @@ $(OBJ_DIR)/%.o: src/%.cpp
 windows:
 	@echo "Making game for Windows"
 	@$(MAKE) program CXX=x86_64-w64-mingw32-g++ CXXFLAGS="-I include -Llib/x86_64-w64-mingw32 -std=c++20 -lraylib -Wall -Wno-narrowing -lopengl32 -lgdi32 -lwinmm -static -static-libgcc -static-libstdc++" --no-print-directory
+
+windows_dynam:
+	@echo "Making game for Windows-Dynamic"
+	@$(MAKE) program CXX=x86_64-w64-mingw32-g++ CXXFLAGS="-I include -Llib/x86_64-w64-mingw32 -std=c++20 -lraylibdll -Wall -Wno-narrowing -lopengl32 -lgdi32 -lwinmm" --no-print-directory
 
 linux:
 	@echo "Making game for Linux"
