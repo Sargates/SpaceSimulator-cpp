@@ -20,7 +20,6 @@ all: windows_dynam run
 
 
 program: $(OBJ_FILES)
-	@# Raylib should be installed on the default path for whatever compiler is being used
 	@# Use `g++ -print-search-dirs` to see default search paths or clang equiv.
 	$(CXX) $^ -o $(PROGRAM) $(CXXFLAGS)
 
@@ -56,6 +55,5 @@ test:
 	@echo $(OBJ_FILES)
 
 clean:
-	@rm -rf $(PROGRAM) $(PROGRAM).exe $(OBJ_DIR)
 	@rm -rf $(PROGRAM) $(PROGRAM).exe $(OBJ_DIR)
 	@echo Project cleaned!

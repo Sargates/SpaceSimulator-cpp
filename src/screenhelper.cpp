@@ -1,7 +1,7 @@
 // Include raylib deps
 #include <string>
-#include "raylib/raylib.hpp"
-#include "raylib/rcamera.hpp"
+#include "raylib.hpp"
+#include "rcamera.hpp"
 
 #include "screenhelper.hpp"
 

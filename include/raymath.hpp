@@ -181,6 +181,8 @@ typedef struct Vector3 {
 	Vector3(float x) : x(x), y(x), z(x) {}
 	Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
 
+	static const Vector3 Zero, One;
+
 	Vector3 asInt() { return { (int)x, (int)y, (int)z }; }
 
     // Equality operator
@@ -217,6 +219,9 @@ typedef struct Vector3 {
 		return "<" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ">";
 	}
 } Vector3;
+const Vector3 Vector3::Zero = Vector3(0,0,0);
+const Vector3 Vector3::One = Vector3(1,1,1);
+
 // Right multiplication
 inline Vector3 operator*(float scalar, Vector3 v) {
 	return {v.x * scalar, v.y * scalar, v.z * scalar};
@@ -227,11 +232,16 @@ inline Vector3 operator*(float scalar, Vector3 v) {
 #if !defined(RL_VECTOR4_TYPE)
 // Vector4 type
 typedef struct Vector4 {
-    float x;
-    float y;
-    float z;
-    float w;
+    float x, y, z, w;
+
+	static const Vector4 Zero, One;
 } Vector4;
+const Vector4 Vector4::Zero(0,0,0,0);
+const Vector4 Vector4::One(1,1,1,1);
+
+
+
+
 #define RL_VECTOR4_TYPE
 #endif
 
@@ -2005,7 +2015,7 @@ RMAPI Quaternion QuaternionFromVector3ToVector3(Vector3 from, Vector3 to)
     Quaternion result = { 0 };
 
     float cos2Theta = (from.x*to.x + from.y*to.y + from.z*to.z);    // Vector3DotProduct(from, to)
-    Vector3 cross = { from.y*to.z - from.z*to.y, from.z*to.x - from.x*to.z, from.x*to.y - from.y*to.x }; // Vector3CrossProduct(from, to)
+    Vector3 cross = { from.z*to.y - from.y*to.z, from.x*to.z - from.z*to.x, from.y*to.x - from.x*to.y }; // Vector3CrossProduct(from, to)
 
     result.x = cross.x;
     result.y = cross.y;
@@ -2227,6 +2237,8 @@ RMAPI Quaternion QuaternionFromEuler(float pitch, float yaw, float roll)
 
     return result;
 }
+RMAPI Quaternion QuaternionFromEulerV(Vector3 vector) { return QuaternionFromEuler(vector.x, vector.y, vector.z); }
+
 
 // Get the Euler angles equivalent to quaternion (roll, pitch, yaw)
 // NOTE: Angles are returned in a Vector3 struct in radians
