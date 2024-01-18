@@ -103,9 +103,17 @@
     #define MatrixToFloat(mat) (MatrixToFloatV(mat).v)
 #endif
 
+// Get float vector for Vector2
+#ifndef Vector2ToFloat
+    #define Vector2ToFloat(vec) (Vector2ToFloatV(vec).v)
+#endif
 // Get float vector for Vector3
 #ifndef Vector3ToFloat
     #define Vector3ToFloat(vec) (Vector3ToFloatV(vec).v)
+#endif
+// Get float vector for Vector4
+#ifndef Vector4ToFloat
+    #define Vector4ToFloat(vec) (Vector4ToFloatV(vec).v)
 #endif
 
 //----------------------------------------------------------------------------------
@@ -117,8 +125,8 @@
 #if !defined(RL_VECTOR2_TYPE)
 // Vector2, 2 components
 typedef struct Vector2 {
-    float x;                // Vector x component
-    float y;                // Vector y component
+    float x, y;
+	static const Vector2 Zero, One;
 
 	Vector2() : x(0), y(0) {}
 	Vector2(float x) : x(x), y(x) {}
@@ -163,6 +171,8 @@ typedef struct Vector2 {
 		return "<" + std::to_string(x) + ", " + std::to_string(y) + ">";
 	}
 } Vector2;
+const Vector2 Vector2::Zero(0,0);
+const Vector2 Vector2::One(1,1);
 // Right multiplication
 //* I do not know what `inline` does, without it this counts as a duplicate definition
 inline Vector2 operator*(float scalar, Vector2 v) {
@@ -219,8 +229,8 @@ typedef struct Vector3 {
 		return "<" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ">";
 	}
 } Vector3;
-const Vector3 Vector3::Zero = Vector3(0,0,0);
-const Vector3 Vector3::One = Vector3(1,1,1);
+const Vector3 Vector3::Zero(0,0,0);
+const Vector3 Vector3::One(1,1,1);
 
 // Right multiplication
 inline Vector3 operator*(float scalar, Vector3 v) {
@@ -234,7 +244,47 @@ inline Vector3 operator*(float scalar, Vector3 v) {
 typedef struct Vector4 {
     float x, y, z, w;
 
+	Vector4() : x(0), y(0), z(0), w(0) {}
+	Vector4(float x) : x(x), y(x), z(x), w(x) {}
+	Vector4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
+
 	static const Vector4 Zero, One;
+
+	Vector4 asInt() { return { (int)x, (int)y, (int)z, (int)w }; }
+
+    // Equality operator
+    bool operator==(const Vector4& other) const { return x == other.x && y == other.y && z == other.z && w == other.w; }
+	// Inequality operator
+    bool operator!=(const Vector4& other) const { return x != other.x && y != other.y && z != other.z && w != other.w; }
+
+    // Addition operator
+    Vector4 operator+(const Vector4& other) const { return {x + other.x, y + other.y, z + other.z, w + other.w}; }
+    // Subtraction operator
+    Vector4 operator-(const Vector4& other) const { return {x - other.x, y - other.y, z - other.z, w - other.w}; }
+    // Scalar multiplication
+    Vector4 operator*(float scalar) const { return {x * scalar, y * scalar, z * scalar, w * scalar}; }
+    // Scalar division
+    Vector4 operator/(float scalar) const {
+        // Check for division by zero to avoid undefined behavior
+        if (scalar != 0.0f) {
+            float invScalar = 1.0f / scalar;
+            return {x * invScalar, y * invScalar, z * invScalar, w * invScalar};
+        } else {
+            // Throw a division by zero exception
+            throw std::runtime_error("Vector4 division by zero");
+        }
+    }
+    Vector4 operator+=(Vector4 other) { this->x += other.x; this->y += other.y; this->z += other.z; this->w += other.w; return *this; }
+    Vector4 operator-=(Vector4 other) { this->x -= other.x; this->y -= other.y; this->z -= other.z; this->w -= other.w; return *this; }
+	Vector4 operator-() const { return { -x, -y, -z, -w }; }
+
+    std::string toString(bool asInt=false) {
+		std::string out = "";
+		if (asInt) {
+			return "<" + std::to_string((int)x) + ", " + std::to_string((int)y) + ", " + std::to_string((int)z) + ">";
+		}
+		return "<" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ">";
+	}
 } Vector4;
 const Vector4 Vector4::Zero(0,0,0,0);
 const Vector4 Vector4::One(1,1,1,1);
@@ -263,9 +313,15 @@ typedef struct Matrix {
 #endif
 
 // NOTE: Helper types to be used instead of array return types for *ToFloat functions
+typedef struct float2 {
+    float v[2];
+} float2;
 typedef struct float3 {
     float v[3];
 } float3;
+typedef struct float4 {
+    float v[4];
+} float4;
 
 typedef struct float16 {
     float v[16];
@@ -1143,14 +1199,31 @@ RMAPI Vector3 Vector3Unproject(Vector3 source, Matrix projection, Matrix view)
     return result;
 }
 
-// Get Vector3 as float array
-RMAPI float3 Vector3ToFloatV(Vector3 v)
-{
+// Get vectors as float array
+RMAPI float2 Vector2ToFloatV(Vector2 v) {
+    float2 buffer = { 0 };
+
+    buffer.v[0] = v.x;
+    buffer.v[1] = v.y;
+
+    return buffer;
+}
+RMAPI float3 Vector3ToFloatV(Vector3 v) {
     float3 buffer = { 0 };
 
     buffer.v[0] = v.x;
     buffer.v[1] = v.y;
     buffer.v[2] = v.z;
+
+    return buffer;
+}
+RMAPI float4 Vector4ToFloatV(Vector4 v) {
+    float4 buffer = { 0 };
+
+    buffer.v[0] = v.x;
+    buffer.v[1] = v.y;
+    buffer.v[2] = v.z;
+    buffer.v[3] = v.w;
 
     return buffer;
 }

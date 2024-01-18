@@ -44,7 +44,7 @@ private:
 	Vector3 Position = { 0 };
 	Quaternion Rotation = QuaternionIdentity();
 
-	float yaw, pitch, roll; //* These values are not used inside this class, they are just here for storage if needed.
+	float yaw=0, pitch=0, roll=0; //* These values are not used inside this class, they are just here for storage if needed.
 
 	bool Dirty = true;
 
@@ -55,6 +55,13 @@ private:
 	std::vector<ObjectTransform*> Children;
 
 public:
+
+	inline float GetYaw() { return yaw;}
+	inline float GetPitch() { return pitch;}
+	inline float GetRoll() { return roll;}
+	inline void SetYaw(float v) { yaw = v; }
+	inline void SetPitch(float v) { pitch = v; }
+	inline void SetRoll(float v) { roll = v; }
 
 	ObjectTransform(Vector3 position, Quaternion rotation=QuaternionIdentity(), bool faceY = true) {
 		Position = position;
@@ -178,9 +185,14 @@ public:
 		SetDirty();
 	}
 
-	inline void SetRotation(const Vector3& eulerAngles) {
-		Vector3 angles = Vector3Scale(eulerAngles, DEG2RAD);
-		Rotation = QuaternionFromEuler(angles.x, angles.y, angles.z);
+	// inline void SetRotation(const Vector3& eulerAngles) {
+	// 	Vector3 angles = Vector3Scale(eulerAngles, DEG2RAD);
+	// 	Rotation = QuaternionFromEuler(angles.x, angles.y, angles.z);
+	// 	SetDirty();
+	// }
+
+	inline void SetRotation(const Quaternion& rot) {
+		Rotation = rot;
 		SetDirty();
 	}
 

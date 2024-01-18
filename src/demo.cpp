@@ -1,4 +1,4 @@
-// //! This code doesnt work as in with my vscode config -- commented out
+// //! This code doesnt work as is with my vscode config -- commented out
 // #define RAYMATH_IMPLEMENTATION
 // #define RLIGHTS_IMPLEMENTATION
 

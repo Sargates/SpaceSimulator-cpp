@@ -37,15 +37,15 @@ $(OBJ_DIR)/%.o: src/%.cpp
 
 windows:
 	@echo "Making game for Windows"
-	@$(MAKE) program CXX=x86_64-w64-mingw32-g++ CXXFLAGS="-I include -Llib/x86_64-w64-mingw32 -std=c++20 -lraylib -Wall -Wno-narrowing -lopengl32 -lgdi32 -lwinmm -static -static-libgcc -static-libstdc++" --no-print-directory
+	@$(MAKE) program CXX=x86_64-w64-mingw32-g++ CXXFLAGS="-I include -Llib/x86_64-w64-mingw32 -std=c++20 -lraylib -Wall -Wno-narrowing -Wcomment -lopengl32 -lgdi32 -lwinmm -static -static-libgcc -static-libstdc++" --no-print-directory
 
 windows_dynam:
 	@echo "Making game for Windows-Dynamic"
-	@$(MAKE) program CXX=x86_64-w64-mingw32-g++ CXXFLAGS="-I include -Llib/x86_64-w64-mingw32 -std=c++20 -lraylibdll -Wall -Wno-narrowing -lopengl32 -lgdi32 -lwinmm" --no-print-directory
+	@$(MAKE) program CXX=x86_64-w64-mingw32-g++ CXXFLAGS="-I include -Llib/x86_64-w64-mingw32 -std=c++20 -lraylibdll -Wall -Wno-narrowing -Wcomment -lopengl32 -lgdi32 -lwinmm" --no-print-directory
 
 linux:
 	@echo "Making game for Linux"
-	@$(MAKE) program CXX=g++ CXXFLAGS="-I include -Llib/x86_64-linux-gnu -std=c++20 -lraylib-s -Wall -Wno-narrowing" --no-print-directory
+	@$(MAKE) program CXX=g++ CXXFLAGS="-I include -Llib/x86_64-linux-gnu -std=c++20 -lraylib-s -Wall -Wno-narrowing -Wcomment" --no-print-directory
 
 run:
 	@# Use * to autocomplete program regardless of extension -- might cause unintended behavior
