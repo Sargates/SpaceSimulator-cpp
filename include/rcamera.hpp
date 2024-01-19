@@ -40,8 +40,8 @@
 **********************************************************************************************/
 #pragma once
 
-#ifndef RCAMERA_H
-#define RCAMERA_H
+#ifndef RCAMERA_HPP
+#define RCAMERA_HPP
 
 //----------------------------------------------------------------------------------
 // Defines and Macros
@@ -161,7 +161,7 @@ RLAPI Matrix GetCameraProjectionMatrix(Camera* camera, float aspect);
 }
 #endif
 
-#endif // RCAMERA_H
+#endif /* RCAMERA_HPP */
 
 
 /***********************************************************************************

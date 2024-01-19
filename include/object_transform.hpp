@@ -30,7 +30,9 @@
 
 //! Modified as needed for this project
 
-#pragma once
+#ifndef OBJECT_TRANSFORM_HPP
+#define OBJECT_TRANSFORM_HPP
+
 
 #include "raylib.hpp"
 #include "raymath.hpp"
@@ -63,7 +65,7 @@ public:
 	inline void SetPitch(float v) { pitch = v; }
 	inline void SetRoll(float v) { roll = v; }
 
-	ObjectTransform(Vector3 position, Quaternion rotation=QuaternionIdentity(), bool faceY = true) {
+	ObjectTransform(Vector3 position, Quaternion rotation=QuaternionIdentity(), bool faceY=false) {
 		Position = position;
 		Rotation = rotation;
 		if (faceY)
@@ -318,3 +320,6 @@ public:
 		rlPopMatrix();
 	}
 };
+
+
+#endif /* OBJECT_TRANSFORM_HPP */

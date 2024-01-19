@@ -21,14 +21,14 @@ all: windows_dynam run
 
 program: $(OBJ_FILES)
 	@# Use `g++ -print-search-dirs` to see default search paths or clang equiv.
-	$(CXX) $^ -o $(PROGRAM) $(CXXFLAGS)
+	$(CXX) $^ -o $(PROGRAM) $(CXXFLAGS) -Wcomment
 
 
 
 # Rule for compiling source files
 $(OBJ_DIR)/%.o: src/%.cpp
 	@mkdir -p $(@D)
-	@$(CXX) -c $< -o $@ $(CXXFLAGS)
+	@$(CXX) -c $< -o $@ $(CXXFLAGS) -Wcomment
 
 # # Rule for compiling source files outside of source
 # $(OBJ_DIR)/%.o: %.cpp

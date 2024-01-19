@@ -41,8 +41,8 @@
 **********************************************************************************************/
 #pragma once
 
-#ifndef RGESTURES_H
-#define RGESTURES_H
+#ifndef RGESTURES_HPP
+#define RGESTURES_HPP
 
 #ifndef PI
     #define PI 3.14159265358979323846
@@ -139,7 +139,7 @@ float GetGesturePinchAngle(void);                       // Get gesture pinch ang
 }
 #endif
 
-#endif // RGESTURES_H
+#endif /* RGESTURES_HPP */
 
 /***********************************************************************************
 *

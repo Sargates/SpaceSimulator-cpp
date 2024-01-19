@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SCREENHELPER_HPP
+#define SCREENHELPER_HPP
+
 
 // Include raylib deps
 #include "raylib.hpp"
@@ -45,3 +47,6 @@ bool Button(Rectangle rect, Color buttonColor, std::string text, int fontSize=24
 bool Button(Alignment alignment, Vector2 size, ElementAlignment elemAlignment, Color buttonColor, std::string text, int fontSize=24, float spacing=2.f);
 bool ButtonHold(Rectangle rect, Color buttonColor, std::string text, int fontSize=24, float spacing=2.f);
 int FreeFontStuff(void);
+
+
+#endif /* SCREENHELPER_HPP */

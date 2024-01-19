@@ -53,8 +53,8 @@
 #include <string>
 #include <stdexcept>
 
-#ifndef RAYMATH_H
-#define RAYMATH_H
+#ifndef RAYMATH_HPP
+#define RAYMATH_HPP
 
 #if defined(RAYMATH_IMPLEMENTATION) && defined(RAYMATH_STATIC_INLINE)
     #error "Specifying both RAYMATH_IMPLEMENTATION and RAYMATH_STATIC_INLINE is contradictory"
@@ -126,11 +126,12 @@
 // Vector2, 2 components
 typedef struct Vector2 {
     float x, y;
-	static const Vector2 Zero, One;
 
 	Vector2() : x(0), y(0) {}
 	Vector2(float x) : x(x), y(x) {}
 	Vector2(float x, float y) : x(x), y(y) {}
+
+	static const Vector2 Zero, One;
 
 	// bool within(Vector2 a, Vector2 b) { return a.x <= x && x < b.x && a.y <= y && y < b.y; } // Experimental
 	Vector2 asInt() { return { (int)x, (int)y }; }
@@ -171,8 +172,8 @@ typedef struct Vector2 {
 		return "<" + std::to_string(x) + ", " + std::to_string(y) + ">";
 	}
 } Vector2;
-const Vector2 Vector2::Zero(0,0);
-const Vector2 Vector2::One(1,1);
+inline const Vector2 Vector2::Zero = { 0, 0 };
+inline const Vector2 Vector2::One = { 1, 1 };
 // Right multiplication
 //* I do not know what `inline` does, without it this counts as a duplicate definition
 inline Vector2 operator*(float scalar, Vector2 v) {
@@ -229,8 +230,8 @@ typedef struct Vector3 {
 		return "<" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ">";
 	}
 } Vector3;
-const Vector3 Vector3::Zero(0,0,0);
-const Vector3 Vector3::One(1,1,1);
+inline const Vector3 Vector3::Zero = {0,0,0};
+inline const Vector3 Vector3::One = {1,1,1};
 
 // Right multiplication
 inline Vector3 operator*(float scalar, Vector3 v) {
@@ -286,8 +287,8 @@ typedef struct Vector4 {
 		return "<" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ">";
 	}
 } Vector4;
-const Vector4 Vector4::Zero(0,0,0,0);
-const Vector4 Vector4::One(1,1,1,1);
+inline const Vector4 Vector4::Zero = {0,0,0,0};
+inline const Vector4 Vector4::One = {1,1,1,1};
 
 
 
@@ -2370,4 +2371,4 @@ RMAPI int QuaternionEquals(Quaternion p, Quaternion q)
     return result;
 }
 
-#endif  // RAYMATH_H
+#endif /* RAYMATH_HPP */

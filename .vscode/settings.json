@@ -47,6 +47,8 @@
 		"typeinfo": "cpp",
 		"iostream": "cpp",
 		"istream": "cpp",
-		"list": "cpp"
+		"list": "cpp",
+		"ios": "cpp",
+		"bitset": "cpp"
 	}
 }

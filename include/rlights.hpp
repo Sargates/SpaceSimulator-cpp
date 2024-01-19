@@ -29,6 +29,7 @@
 *     3. This notice may not be removed or altered from any source distribution.
 *
 **********************************************************************************************/
+#pragma once
 
 #ifndef RLIGHTS_H
 #define RLIGHTS_H
@@ -80,7 +81,6 @@ void UpdateLightValues(Shader shader, Light light);         // Send light proper
 }
 #endif
 
-#endif // RLIGHTS_H
 
 
 /***********************************************************************************
@@ -168,3 +168,6 @@ void UpdateLightValues(Shader shader, Light light)
 }
 
 #endif // RLIGHTS_IMPLEMENTATION
+
+
+#endif /* RLIGHTS_HPP */

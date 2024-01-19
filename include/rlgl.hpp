@@ -105,8 +105,8 @@
 **********************************************************************************************/
 #pragma once
 
-#ifndef RLGL_H
-#define RLGL_H
+#ifndef RLGL_HPP
+#define RLGL_HPP
 
 #define RLGL_VERSION  "4.5"
 
@@ -764,7 +764,7 @@ RLAPI void rlLoadDrawQuad(void);     // Load and draw a quad
 }
 #endif
 
-#endif // RLGL_H
+#endif /* RLGL_HPP */
 
 /***********************************************************************************
 *

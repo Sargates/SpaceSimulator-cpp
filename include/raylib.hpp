@@ -77,8 +77,8 @@
 **********************************************************************************************/
 #pragma once
 
-#ifndef RAYLIB_H
-#define RAYLIB_H
+#ifndef RAYLIB_HPP
+#define RAYLIB_HPP
 
 #include <stdarg.h>     // Required for: va_list - Only used by TraceLogCallback
 #include <stdexcept>
@@ -1677,4 +1677,4 @@ RLAPI void DetachAudioMixedProcessor(AudioCallback processor); // Detach audio s
 }
 #endif
 
-#endif // RAYLIB_H
+#endif /* RAYLIB_HPP */
